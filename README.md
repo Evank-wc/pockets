@@ -14,10 +14,6 @@ A minimal, privacy-focused expense tracker for iOS built with SwiftUI and CoreDa
 - 💾 **Local Storage Only** - Your data stays on your device, period
 - 🌙 **Dark Theme** - Beautiful dark interface designed for comfort
 
-## Screenshots
-
-_Add screenshots here after you have your logo set up!_
-
 ## Requirements
 
 - iOS 17.0+

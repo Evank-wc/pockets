@@ -27,6 +27,16 @@ class ExpenseViewModel: ObservableObject {
     init() {
         loadData()
         setupObservers()
+        setupCurrencyObserver()
+    }
+    
+    private func setupCurrencyObserver() {
+        NotificationCenter.default.publisher(for: .currencyDidChange)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] _ in
+                self?.objectWillChange.send()
+            }
+            .store(in: &cancellables)
     }
     
     // MARK: - Data Loading

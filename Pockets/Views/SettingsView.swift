@@ -74,6 +74,18 @@ struct SettingsView: View {
                                     .foregroundColor(AppTheme.accent)
                             }
                         }
+                        
+                        NavigationLink {
+                            CurrencySettingsView()
+                        } label: {
+                            Label {
+                                Text("Currency")
+                                    .foregroundColor(AppTheme.primaryText)
+                            } icon: {
+                                Image(systemName: "dollarsign.circle.fill")
+                                    .foregroundColor(AppTheme.accent)
+                            }
+                        }
                     } header: {
                         Text("Data")
                             .foregroundColor(AppTheme.secondaryText)

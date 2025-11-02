@@ -10,12 +10,9 @@ import Foundation
 /// Centralized formatters for consistent display throughout the app
 struct AppFormatter {
     /// Currency formatter for displaying amounts
-    static let currency: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .currency
-        formatter.locale = Locale.current
-        return formatter
-    }()
+    static var currency: NumberFormatter {
+        return CurrencyManager.shared.currencyFormatter
+    }
     
     /// Date formatter for displaying dates
     static let dateFormatter: DateFormatter = {
@@ -56,7 +53,8 @@ struct AppFormatter {
     
     /// Formats a Decimal amount as currency string
     static func currencyString(from amount: Decimal) -> String {
-        return currency.string(from: amount as NSDecimalNumber) ?? "$0.00"
+        let formatter = currency
+        return formatter.string(from: amount as NSDecimalNumber) ?? "\(CurrencyManager.shared.currencySymbol(for: CurrencyManager.shared.selectedCurrencyCode))0.00"
     }
     
     /// Formats a Date for display

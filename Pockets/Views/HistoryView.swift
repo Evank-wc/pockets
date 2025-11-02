@@ -387,7 +387,7 @@ struct EditExpenseView: View {
                             Text("Amount")
                                 .foregroundColor(AppTheme.primaryText)
                             Spacer()
-                            TextField("Amount", value: $amount, format: .currency(code: "USD"))
+                            TextField("Amount", value: $amount, format: .currency(code: CurrencyManager.shared.selectedCurrencyCode))
                                 .keyboardType(.decimalPad)
                                 .multilineTextAlignment(.trailing)
                                 .foregroundColor(AppTheme.primaryText)

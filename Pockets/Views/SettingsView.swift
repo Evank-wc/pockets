@@ -133,9 +133,24 @@ struct SettingsView: View {
                                     .foregroundColor(AppTheme.accent)
                             }
                         }
+                        
+                        NavigationLink {
+                            OnboardingView(
+                                hasCompletedOnboarding: .constant(true),
+                                isStandalone: true
+                            )
+                        } label: {
+                            Label {
+                                Text("View Onboarding")
+                                    .foregroundColor(AppTheme.primaryText)
+                            } icon: {
+                                Image(systemName: "book.fill")
+                                    .foregroundColor(AppTheme.accent)
+                            }
+                        }
                     } header: {
                         Text("Support")
-                            .foregroundColor(AppTheme.secondaryText)
+                        .foregroundColor(AppTheme.secondaryText)
                     }
                     .listRowBackground(AppTheme.cardBackground)
                     

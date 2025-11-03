@@ -14,8 +14,8 @@ struct PocketsApp: App {
     let storageService = StorageService.shared
     
     init() {
-        // Request notification permissions on app launch
-        NotificationService.shared.requestAuthorization { _ in }
+        // Don't request notification permissions on app launch
+        // This will be handled in the onboarding flow
     }
     
     var body: some Scene {

@@ -36,6 +36,8 @@
 		3B6E407C2EB7800700EA4E38 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E407D2EB7800700EA4E38 /* SplashScreenView.swift */; };
 		3B6E407E2EB7800800EA4E38 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E407F2EB7800800EA4E38 /* CurrencyManager.swift */; };
 		3B6E40802EB7800900EA4E38 /* CurrencySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40812EB7800900EA4E38 /* CurrencySettingsView.swift */; };
+		3B6E40842EB7800B00EA4E38 /* CSVExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40852EB7800B00EA4E38 /* CSVExportService.swift */; };
+		3B6E40862EB7800C00EA4E38 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40872EB7800C00EA4E38 /* ShareSheet.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -69,6 +71,8 @@
 		3B6E407D2EB7800700EA4E38 /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		3B6E407F2EB7800800EA4E38 /* CurrencyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
 		3B6E40812EB7800900EA4E38 /* CurrencySettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencySettingsView.swift; sourceTree = "<group>"; };
+		3B6E40852EB7800B00EA4E38 /* CSVExportService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVExportService.swift; sourceTree = "<group>"; };
+		3B6E40872EB7800C00EA4E38 /* ShareSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,7 @@
 			children = (
 				3B6E403D2EB76F4300EA4E38 /* AmountKeypadView.swift */,
 				3B6E40832EB7800A00EA4E38 /* DateWheelPicker.swift */,
+				3B6E40872EB7800C00EA4E38 /* ShareSheet.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -184,6 +189,7 @@
 			children = (
 				3B6E40462EB76F4300EA4E38 /* StorageService.swift */,
 				3B6E40732EB7800200EA4E38 /* NotificationService.swift */,
+				3B6E40852EB7800B00EA4E38 /* CSVExportService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -294,6 +300,8 @@
 				3B6E407C2EB7800700EA4E38 /* SplashScreenView.swift in Sources */,
 				3B6E407E2EB7800800EA4E38 /* CurrencyManager.swift in Sources */,
 				3B6E40802EB7800900EA4E38 /* CurrencySettingsView.swift in Sources */,
+				3B6E40842EB7800B00EA4E38 /* CSVExportService.swift in Sources */,
+				3B6E40862EB7800C00EA4E38 /* ShareSheet.swift in Sources */,
 				3B6E40692EB7716300EA4E38 /* Pocketsdatamodel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

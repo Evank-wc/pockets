@@ -11,6 +11,8 @@ import SwiftUI
 struct SettingsView: View {
     @ObservedObject var viewModel: ExpenseViewModel
     @State private var showingResetAlert = false
+    @State private var showingShareSheet = false
+    @State private var csvFileURL: URL?
     
     var body: some View {
         NavigationStack {
@@ -86,9 +88,24 @@ struct SettingsView: View {
                                     .foregroundColor(AppTheme.accent)
                             }
                         }
+                        
+                        Button {
+                            exportToCSV()
+                        } label: {
+                            Label {
+                                Text("Export to CSV")
+                                    .foregroundColor(AppTheme.primaryText)
+                            } icon: {
+                                Image(systemName: "square.and.arrow.up.fill")
+                                    .foregroundColor(AppTheme.accent)
+                            }
+                        }
                     } header: {
                         Text("Data")
                             .foregroundColor(AppTheme.secondaryText)
+                    } footer: {
+                        Text("Export all your expenses to a CSV file that can be opened in Excel, Numbers, or Google Sheets.")
+                            .foregroundColor(AppTheme.tertiaryText)
                     }
                     .listRowBackground(AppTheme.cardBackground)
                     
@@ -222,6 +239,27 @@ struct SettingsView: View {
                     }
                 )
             }
+            .sheet(isPresented: $showingShareSheet) {
+                if let fileURL = csvFileURL {
+                    ShareSheet(items: [fileURL])
+                }
+            }
+        }
+    }
+    
+    private func exportToCSV() {
+        Haptics.light()
+        
+        // Generate CSV file
+        if let fileURL = CSVExportService.shared.createCSVFile(
+            expenses: viewModel.expenses,
+            categories: viewModel.categories
+        ) {
+            csvFileURL = fileURL
+            showingShareSheet = true
+        } else {
+            // Show error if export fails
+            Haptics.error()
         }
     }
 }

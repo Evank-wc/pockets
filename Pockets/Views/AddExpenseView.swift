@@ -129,15 +129,9 @@ struct AddExpenseView: View {
                                     .padding(.horizontal, 20)
                                     .padding(.top, 16)
                                 
-                                HStack {
-                                    DatePicker("", selection: $selectedDate, displayedComponents: .date)
-                                        .datePickerStyle(.compact)
-                                        .labelsHidden()
-                                        .foregroundColor(AppTheme.primaryText)
-                                    Spacer()
-                                }
-                                .padding(.horizontal, 20)
-                                .padding(.bottom, 16)
+                                DateWheelPicker(date: $selectedDate, title: "Date")
+                                    .padding(.horizontal, 20)
+                                    .padding(.bottom, 16)
                             }
                         }
                         .background(AppTheme.cardBackground)

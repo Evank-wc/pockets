@@ -20,6 +20,7 @@ class ExpenseViewModel: ObservableObject {
     @Published var searchText: String = ""
     @Published var selectedCategoryFilter: UUID?
     @Published var selectedTypeFilter: ExpenseType?
+    @Published var dateRangeFilter: ClosedRange<Date>? = nil
     
     private let storageService = StorageService.shared
     private var cancellables = Set<AnyCancellable>()
@@ -185,6 +186,17 @@ class ExpenseViewModel: ObservableObject {
         // Apply type filter
         if let type = selectedTypeFilter {
             filtered = filtered.filter { $0.type == type }
+        }
+        
+        // Apply date range filter
+        if let dateRange = dateRangeFilter {
+            filtered = filtered.filter { expense in
+                let calendar = Calendar.current
+                let expenseStartOfDay = calendar.startOfDay(for: expense.date)
+                let rangeStart = calendar.startOfDay(for: dateRange.lowerBound)
+                let rangeEnd = calendar.startOfDay(for: dateRange.upperBound)
+                return expenseStartOfDay >= rangeStart && expenseStartOfDay <= rangeEnd
+            }
         }
         
         return filtered.sorted { $0.date > $1.date }

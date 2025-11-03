@@ -282,6 +282,9 @@ struct SortOptionsView: View {
 struct FilterView: View {
     @ObservedObject var viewModel: ExpenseViewModel
     @Environment(\.dismiss) var dismiss
+    @State private var startDate: Date = Calendar.current.startOfDay(for: Date())
+    @State private var endDate: Date = Calendar.current.startOfDay(for: Date())
+    @State private var useDateRange: Bool = false
     
     var body: some View {
         NavigationStack {
@@ -323,6 +326,51 @@ struct FilterView: View {
                             .foregroundColor(AppTheme.secondaryText)
                     }
                     .listRowBackground(AppTheme.cardBackground)
+                    
+                    Section {
+                        Toggle("Use Date Range", isOn: $useDateRange)
+                            .foregroundColor(AppTheme.primaryText)
+                            .onChange(of: useDateRange) { oldValue, newValue in
+                                if !newValue {
+                                    viewModel.dateRangeFilter = nil
+                                } else {
+                                    updateDateRange()
+                                }
+                            }
+                        
+                        if useDateRange {
+                            DateWheelPicker(date: $startDate, title: "Start Date")
+                                .onChange(of: startDate) { _, _ in
+                                    if startDate > endDate {
+                                        endDate = startDate
+                                    }
+                                    updateDateRange()
+                                }
+                            
+                            DateWheelPicker(date: $endDate, title: "End Date")
+                                .onChange(of: endDate) { _, _ in
+                                    if endDate < startDate {
+                                        startDate = endDate
+                                    }
+                                    updateDateRange()
+                                }
+                            
+                            if let range = viewModel.dateRangeFilter {
+                                Text("Showing transactions from \(AppFormatter.dateString(from: range.lowerBound)) to \(AppFormatter.dateString(from: range.upperBound))")
+                                    .font(.system(size: 13))
+                                    .foregroundColor(AppTheme.secondaryText)
+                            }
+                        }
+                    } header: {
+                        Text("Filter by Date Range")
+                            .foregroundColor(AppTheme.secondaryText)
+                    } footer: {
+                        if useDateRange {
+                            Text("Only transactions within the selected date range will be shown.")
+                                .foregroundColor(AppTheme.tertiaryText)
+                        }
+                    }
+                    .listRowBackground(AppTheme.cardBackground)
                 }
                 .scrollContentBackground(.hidden)
             }
@@ -333,6 +381,8 @@ struct FilterView: View {
                     Button("Clear All") {
                         viewModel.selectedTypeFilter = nil
                         viewModel.selectedCategoryFilter = nil
+                        viewModel.dateRangeFilter = nil
+                        useDateRange = false
                         Haptics.medium()
                     }
                     .foregroundColor(AppTheme.secondaryText)
@@ -344,7 +394,22 @@ struct FilterView: View {
                     .foregroundColor(AppTheme.accent)
                 }
             }
+            .onAppear {
+                // Initialize state from existing filter
+                if let existingRange = viewModel.dateRangeFilter {
+                    useDateRange = true
+                    startDate = existingRange.lowerBound
+                    endDate = existingRange.upperBound
+                }
+            }
         }
+    }
+    
+    private func updateDateRange() {
+        let calendar = Calendar.current
+        let start = calendar.startOfDay(for: startDate)
+        let end = calendar.startOfDay(for: endDate)
+        viewModel.dateRangeFilter = start...end
     }
 }
 
@@ -409,8 +474,7 @@ struct EditExpenseView: View {
                         TextField("Note (optional)", text: $note)
                             .foregroundColor(AppTheme.primaryText)
                         
-                        DatePicker("Date", selection: $selectedDate, displayedComponents: .date)
-                            .foregroundColor(AppTheme.primaryText)
+                        DateWheelPicker(date: $selectedDate, title: "Date")
                     }
                     .listRowBackground(AppTheme.cardBackground)
                 }
@@ -656,7 +720,7 @@ struct ExpenseDetailView: View {
 // MARK: - Extensions
 extension ExpenseViewModel {
     var hasActiveFilters: Bool {
-        selectedCategoryFilter != nil || selectedTypeFilter != nil
+        selectedCategoryFilter != nil || selectedTypeFilter != nil || dateRangeFilter != nil
     }
 }
 

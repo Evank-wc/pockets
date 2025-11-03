@@ -40,6 +40,7 @@
 		3B6E40862EB7800C00EA4E38 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40872EB7800C00EA4E38 /* ShareSheet.swift */; };
 		3B6E40882EB7800D00EA4E38 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40892EB7800D00EA4E38 /* OnboardingView.swift */; };
 		3B6E408A2EB7800E00EA4E38 /* NotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E408B2EB7800E00EA4E38 /* NotificationPermissionView.swift */; };
+		3B6E408E2EB7801000EA4E38 /* AboutAndPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E408F2EB7801000EA4E38 /* AboutAndPrivacyView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -77,6 +78,7 @@
 		3B6E40872EB7800C00EA4E38 /* ShareSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		3B6E40892EB7800D00EA4E38 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		3B6E408B2EB7800E00EA4E38 /* NotificationPermissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPermissionView.swift; sourceTree = "<group>"; };
+		3B6E408F2EB7801000EA4E38 /* AboutAndPrivacyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutAndPrivacyView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -177,6 +179,7 @@
 				3B6E407B2EB7800600EA4E38 /* ContactView.swift */,
 				3B6E407D2EB7800700EA4E38 /* SplashScreenView.swift */,
 				3B6E40812EB7800900EA4E38 /* CurrencySettingsView.swift */,
+				3B6E408F2EB7801000EA4E38 /* AboutAndPrivacyView.swift */,
 				3B6E40432EB76F4300EA4E38 /* SettingsView.swift */,
 			);
 			path = Views;
@@ -318,6 +321,7 @@
 				3B6E40862EB7800C00EA4E38 /* ShareSheet.swift in Sources */,
 				3B6E40882EB7800D00EA4E38 /* OnboardingView.swift in Sources */,
 				3B6E408A2EB7800E00EA4E38 /* NotificationPermissionView.swift in Sources */,
+				3B6E408E2EB7801000EA4E38 /* AboutAndPrivacyView.swift in Sources */,
 				3B6E40692EB7716300EA4E38 /* Pocketsdatamodel.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -537,7 +541,7 @@
 			);
 			currentVersion = 3B6E40682EB7716300EA4E38 /* pocketsdatamodel.xcdatamodel */;
 			name = Pocketsdatamodel.xcdatamodeld;
-			path = "/Users/wchuong/Desktop/Side Projects/Project_Pockets/Pockets/Pockets/Pocketsdatamodel.xcdatamodeld";
+			path = pocketsdatamodel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

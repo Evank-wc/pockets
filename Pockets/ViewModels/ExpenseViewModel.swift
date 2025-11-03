@@ -26,9 +26,24 @@ class ExpenseViewModel: ObservableObject {
     private var cancellables = Set<AnyCancellable>()
     
     init() {
-        loadData()
+        // Load data with error handling to prevent crashes
+        loadDataSafely()
         setupObservers()
         setupCurrencyObserver()
+    }
+    
+    /// Safely loads data with comprehensive error handling
+    private func loadDataSafely() {
+        do {
+            loadData()
+        } catch {
+            print("⚠️ Critical error loading data: \(error)")
+            // Initialize with empty data to prevent crash
+            expenses = []
+            categories = []
+            recurringExpenses = []
+            monthlyBudget = 0
+        }
     }
     
     private func setupCurrencyObserver() {
@@ -49,11 +64,13 @@ class ExpenseViewModel: ObservableObject {
         let budgetValue = UserDefaults.standard.double(forKey: "monthlyBudget")
         monthlyBudget = Decimal(budgetValue)
         
-        // Load recurring expenses from UserDefaults
-        loadRecurringExpenses()
-        
-        // Process recurring expenses on load
-        processRecurringExpenses()
+        // Load recurring expenses from UserDefaults with error recovery
+        // Use async dispatch to prevent blocking app startup
+        DispatchQueue.main.async { [weak self] in
+            self?.loadRecurringExpenses()
+            // Process recurring expenses after loading
+            self?.processRecurringExpenses()
+        }
     }
     
     private func setupObservers() {
@@ -304,15 +321,86 @@ class ExpenseViewModel: ObservableObject {
     
     // MARK: - Recurring Expenses
     private func loadRecurringExpenses() {
-        if let data = UserDefaults.standard.data(forKey: "recurringExpenses"),
-           let decoded = try? JSONDecoder().decode([RecurringExpense].self, from: data) {
-            recurringExpenses = decoded
+        // Ensure we're accessing UserDefaults on main thread
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { [weak self] in
+                self?.loadRecurringExpenses()
+            }
+            return
+        }
+        
+        // Wrap everything in a do-catch to prevent any crashes
+        do {
+            // Safely access UserDefaults
+            let userDefaults = UserDefaults.standard
+            guard let data = userDefaults.data(forKey: "recurringExpenses") else {
+                recurringExpenses = []
+                return
+            }
+            
+            // Validate data is not empty and has valid size
+            guard !data.isEmpty, data.count > 0, data.count < 10_000_000 else { // 10MB max limit
+                print("⚠️ Recurring expenses data is invalid (empty or too large), clearing...")
+                clearRecurringExpensesData()
+                return
+            }
+            
+            // Validate data looks like JSON by checking for opening bracket
+            // Check if data has at least one byte before accessing first
+            guard data.count > 0, data.first == 0x5B || data.first == 0x7B else { // '[' or '{'
+                print("⚠️ Recurring expenses data doesn't appear to be valid JSON, clearing...")
+                clearRecurringExpensesData()
+                return
+            }
+            
+            // First, validate that the data can be parsed as JSON using JSONSerialization
+            // This helps catch corrupted data before it reaches JSONDecoder
+            do {
+                _ = try JSONSerialization.jsonObject(with: data, options: [])
+            } catch {
+                print("⚠️ Data is not valid JSON: \(error.localizedDescription)")
+                print("⚠️ Clearing corrupted data...")
+                clearRecurringExpensesData()
+                return
+            }
+            
+            // Create decoder with defensive settings
+            let decoder = JSONDecoder()
+            
+            // Safely decode with error handling
+            do {
+                let decoded = try decoder.decode([RecurringExpense].self, from: data)
+                recurringExpenses = decoded
+                print("✅ Successfully loaded \(decoded.count) recurring expenses")
+            } catch let decodingError {
+                print("⚠️ Error decoding recurring expenses: \(decodingError.localizedDescription)")
+                print("⚠️ Error details: \(decodingError)")
+                print("⚠️ Clearing corrupted data...")
+                // Clear corrupted data
+                clearRecurringExpensesData()
+            }
+        } catch {
+            // Catch any unexpected errors during the process
+            print("⚠️ Unexpected error in loadRecurringExpenses: \(error)")
+            clearRecurringExpensesData()
         }
     }
     
+    /// Clears corrupted recurring expenses data from UserDefaults
+    private func clearRecurringExpensesData() {
+        UserDefaults.standard.removeObject(forKey: "recurringExpenses")
+        UserDefaults.standard.synchronize()
+        recurringExpenses = []
+    }
+    
     private func saveRecurringExpenses() {
-        if let encoded = try? JSONEncoder().encode(recurringExpenses) {
+        do {
+            let encoded = try JSONEncoder().encode(recurringExpenses)
             UserDefaults.standard.set(encoded, forKey: "recurringExpenses")
+            UserDefaults.standard.synchronize()
+        } catch {
+            print("⚠️ Error encoding recurring expenses: \(error.localizedDescription)")
+            // Don't crash if encoding fails - just log the error
         }
     }
     

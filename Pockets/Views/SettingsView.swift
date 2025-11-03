@@ -163,25 +163,15 @@ struct SettingsView: View {
                                 .foregroundColor(AppTheme.secondaryText)
                         }
                         
-                        Link(destination: URL(string: "https://apps.apple.com")!) {
-                            HStack {
-                                Text("Privacy Policy")
+                        NavigationLink {
+                            AboutAndPrivacyView()
+                        } label: {
+                            Label {
+                                Text("About & Privacy")
+                                    .foregroundColor(AppTheme.primaryText)
+                            } icon: {
+                                Image(systemName: "info.circle.fill")
                                     .foregroundColor(AppTheme.accent)
-                                Spacer()
-                                Image(systemName: "arrow.up.right.square")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(AppTheme.secondaryText)
-                            }
-                        }
-                        
-                        Link(destination: URL(string: "https://apps.apple.com")!) {
-                            HStack {
-                                Text("Terms of Service")
-                                    .foregroundColor(AppTheme.accent)
-                                Spacer()
-                                Image(systemName: "arrow.up.right.square")
-                                    .font(.system(size: 14))
-                                    .foregroundColor(AppTheme.secondaryText)
                             }
                         }
                     } header: {

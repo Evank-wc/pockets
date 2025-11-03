@@ -14,16 +14,17 @@ class StorageService: ObservableObject {
     
     // MARK: - Core Data Stack
     lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "Pocketsdatamodel")
+        // Use lowercase name to match the actual file: pocketsdatamodel.xcdatamodeld
+        let container = NSPersistentContainer(name: "pocketsdatamodel")
         
         var hasError = false
         container.loadPersistentStores { description, error in
             if let error = error {
-                print("⚠️ Core Data failed to load: \(error.localizedDescription)")
-                print("⚠️ Please create the CoreData model file 'PocketsDataModel.xcdatamodeld' in Xcode")
-                print("⚠️ See COREDATA_SETUP.md for instructions")
+                print("❌ Core Data failed to load: \(error.localizedDescription)")
+                print("⚠️ Store URL: \(description.url?.absoluteString ?? "unknown")")
                 hasError = true
             } else {
+                print("✅ CoreData loaded successfully")
                 // Setup default categories after successful load
                 DispatchQueue.main.async { [weak self] in
                     self?.setupDefaultCategoriesIfNeeded()
@@ -36,6 +37,8 @@ class StorageService: ObservableObject {
             // Configure CoreData context
             container.viewContext.automaticallyMergesChangesFromParent = true
             container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        } else {
+            print("⚠️ CoreData container loaded with errors, some features may not work")
         }
         
         return container

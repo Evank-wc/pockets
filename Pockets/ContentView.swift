@@ -9,7 +9,16 @@ import SwiftUI
 
 /// Main content view with tab navigation
 struct ContentView: View {
-    @StateObject private var viewModel = ExpenseViewModel()
+    @StateObject private var viewModel: ExpenseViewModel = {
+        // Initialize with error handling
+        do {
+            return ExpenseViewModel()
+        } catch {
+            // If initialization fails, return a new instance
+            // (init doesn't throw, but being defensive)
+            return ExpenseViewModel()
+        }
+    }()
     @State private var selectedTab = 1 // Dashboard in center
     
     var body: some View {

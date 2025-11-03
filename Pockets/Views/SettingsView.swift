@@ -234,6 +234,10 @@ struct SettingsView: View {
                     .listRowBackground(Color.clear)
                 }
                 .scrollContentBackground(.hidden)
+                .safeAreaInset(edge: .bottom) {
+                    // Spacer to prevent content from being hidden behind nav bar
+                    Color.clear.frame(height: 80)
+                }
             }
             .navigationTitle("Settings")
             .sheet(isPresented: $showingResetAlert) {

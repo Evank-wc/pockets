@@ -26,7 +26,7 @@ class NotificationService {
     // MARK: - Permission
     
     func requestAuthorization(completion: @escaping (Bool) -> Void) {
-        center.requestAuthorization(options: [.alert, .sound, .badge]) { granted, _ in
+        center.requestAuthorization(options: [.alert, .sound]) { granted, _ in
             DispatchQueue.main.async {
                 completion(granted)
             }
@@ -52,7 +52,6 @@ class NotificationService {
         content.title = "Track Your Expenses"
         content.body = "Don't forget to log your expenses for today!"
         content.sound = .default
-        content.badge = 1
         
         var dateComponents = DateComponents()
         dateComponents.hour = hour

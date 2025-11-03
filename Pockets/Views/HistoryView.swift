@@ -87,6 +87,10 @@ struct HistoryView: View {
                         }
                         .scrollContentBackground(.hidden)
                         .listStyle(.insetGrouped)
+                        .safeAreaInset(edge: .bottom) {
+                            // Spacer to prevent content from being hidden behind nav bar
+                            Color.clear.frame(height: 80)
+                        }
                     }
                 }
             }

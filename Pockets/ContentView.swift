@@ -22,12 +22,33 @@ struct ContentView: View {
     @State private var selectedTab = 1 // Dashboard in center
     @State private var previousTab = 1
     
+    // Visual tab order: Dashboard (1), History (2), Recurring (0), Settings (3)
+    private func getNextTab() -> Int? {
+        switch selectedTab {
+        case 1: return 2  // Dashboard -> History
+        case 2: return 0  // History -> Recurring
+        case 0: return 3  // Recurring -> Settings
+        case 3: return nil // Settings is last
+        default: return nil
+        }
+    }
+    
+    private func getPreviousTab() -> Int? {
+        switch selectedTab {
+        case 1: return nil // Dashboard is first
+        case 2: return 1   // History -> Dashboard
+        case 0: return 2   // Recurring -> History
+        case 3: return 0   // Settings -> Recurring
+        default: return nil
+        }
+    }
+    
     var body: some View {
         ZStack {
             // Background
             AppTheme.background.ignoresSafeArea()
             
-            // Tab content with transitions
+            // Tab content with transitions and swipe gesture
             Group {
                 if selectedTab == 0 {
                     RecurringView(viewModel: viewModel)
@@ -56,6 +77,35 @@ struct ContentView: View {
                 }
             }
             .animation(.spring(response: 0.35, dampingFraction: 0.9), value: selectedTab)
+            .simultaneousGesture(
+                DragGesture(minimumDistance: 50)
+                    .onEnded { value in
+                        let horizontalAmount = value.translation.width
+                        let verticalAmount = value.translation.height
+                        
+                        // Only trigger if horizontal swipe is significantly more than vertical
+                        if abs(horizontalAmount) > abs(verticalAmount) && abs(horizontalAmount) > 100 {
+                            // Horizontal swipe
+                            if horizontalAmount > 0 {
+                                // Swipe right - go to previous tab (in visual order)
+                                if let previous = getPreviousTab() {
+                                    Haptics.selection()
+                                    withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
+                                        selectedTab = previous
+                                    }
+                                }
+                            } else {
+                                // Swipe left - go to next tab (in visual order)
+                                if let next = getNextTab() {
+                                    Haptics.selection()
+                                    withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
+                                        selectedTab = next
+                                    }
+                                }
+                            }
+                        }
+                    }
+            )
             .onChange(of: selectedTab) { oldValue, newValue in
                 previousTab = oldValue
             }

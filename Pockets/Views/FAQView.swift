@@ -85,6 +85,10 @@ struct FAQView: View {
                     }
                     .padding(20)
                 }
+                .safeAreaInset(edge: .bottom) {
+                    // Spacer to prevent content from being hidden behind nav bar
+                    Color.clear.frame(height: 80)
+                }
             }
             .navigationTitle("FAQ")
             .navigationBarTitleDisplayMode(.inline)

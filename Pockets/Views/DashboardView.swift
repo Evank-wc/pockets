@@ -52,10 +52,14 @@ struct DashboardView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 16)
-                    .padding(.bottom, 100) // Space for floating button
+                    .padding(.bottom, 120) // Space for floating button + bottom nav bar
                 }
                 .background(AppTheme.background.ignoresSafeArea())
                 .scrollIndicators(.hidden)
+                .safeAreaInset(edge: .bottom) {
+                    // Invisible spacer to prevent content from being hidden behind nav bar
+                    Color.clear.frame(height: 0)
+                }
                 
                 // Floating Add Button (Bottom Right, above nav bar)
                 VStack {

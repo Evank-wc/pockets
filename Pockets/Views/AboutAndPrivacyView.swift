@@ -236,6 +236,10 @@ struct PrivacyPolicyView: View {
             .padding(20)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .safeAreaInset(edge: .bottom) {
+            // Spacer to prevent content from being hidden behind nav bar
+            Color.clear.frame(height: 80)
+        }
     }
     
     private func formatDate(_ date: Date) -> String {
@@ -384,6 +388,10 @@ struct TermsOfServiceView: View {
             .padding(20)
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+        .safeAreaInset(edge: .bottom) {
+            // Spacer to prevent content from being hidden behind nav bar
+            Color.clear.frame(height: 80)
+        }
     }
     
     private func formatDate(_ date: Date) -> String {
@@ -469,6 +477,10 @@ struct AboutUsView: View {
             }
             .padding(20)
             .frame(maxWidth: .infinity, alignment: .leading)
+        }
+        .safeAreaInset(edge: .bottom) {
+            // Spacer to prevent content from being hidden behind nav bar
+            Color.clear.frame(height: 80)
         }
     }
 }

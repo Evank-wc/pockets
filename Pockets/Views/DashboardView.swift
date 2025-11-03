@@ -75,21 +75,13 @@ struct DashboardView: View {
                                 .shadow(color: AppTheme.cardShadow, radius: 15, x: 0, y: 8)
                         }
                         .padding(.trailing, 20)
-                        .padding(.bottom, 30) // Moved down more (20-40 range)
+                        .padding(.bottom, 50)
                     }
                 }
             }
             .navigationTitle("Pockets")
             .navigationBarTitleDisplayMode(.large)
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink {
-                        SettingsView(viewModel: viewModel)
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                            .foregroundColor(AppTheme.accent)
-                    }
-                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         Haptics.light()

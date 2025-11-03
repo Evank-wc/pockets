@@ -286,7 +286,7 @@ struct SeeMoneyOnboardingView: View {
                 // Mock Calendar
                 VStack(spacing: 8) {
                     HStack(spacing: 0) {
-                        ForEach(["S", "M", "T", "W", "T", "F", "S"], id: \.self) { day in
+                        ForEach(Array(["S", "M", "T", "W", "T", "F", "S"].enumerated()), id: \.offset) { index, day in
                             Text(day)
                                 .font(.system(size: 12, weight: .medium))
                                 .foregroundColor(AppTheme.secondaryText)

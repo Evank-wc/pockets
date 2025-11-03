@@ -292,9 +292,10 @@ struct IconPickerView: View {
                                 .font(.system(size: 14, weight: .semibold))
                         ) {
                             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 5), spacing: 16) {
-                                ForEach(category.1, id: \.self) { emoji in
+                                ForEach(Array(category.1.enumerated()), id: \.offset) { index, emoji in
                                     Button {
-                                        selectedIcon = emoji
+                                        let capturedEmoji = emoji
+                                        selectedIcon = capturedEmoji
                                         Haptics.selection()
                                         withAnimation(AppTheme.springAnimation) {
                                             dismiss()
@@ -311,6 +312,8 @@ struct IconPickerView: View {
                                             )
                                             .scaleEffect(selectedIcon == emoji ? 1.1 : 1.0)
                                     }
+                                    .buttonStyle(.plain)
+                                    .id("\(category.0)-\(index)-\(emoji)")
                                 }
                             }
                             .padding(.vertical, 12)

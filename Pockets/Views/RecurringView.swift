@@ -41,14 +41,6 @@ struct RecurringView: View {
             }
             .navigationTitle("Recurring")
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    NavigationLink {
-                        SettingsView(viewModel: viewModel)
-                    } label: {
-                        Image(systemName: "gearshape.fill")
-                            .foregroundColor(AppTheme.accent)
-                    }
-                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         Haptics.light()

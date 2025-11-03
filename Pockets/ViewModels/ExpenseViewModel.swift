@@ -37,7 +37,10 @@ class ExpenseViewModel: ObservableObject {
         do {
             loadData()
         } catch {
-            print("⚠️ Critical error loading data: \(error)")
+            // Defer logging to prevent console flooding during initialization
+            DispatchQueue.main.async {
+                AppLogger.error("Critical error loading data: \(error)")
+            }
             // Initialize with empty data to prevent crash
             expenses = []
             categories = []

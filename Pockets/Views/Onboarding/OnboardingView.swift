@@ -50,26 +50,32 @@ struct OnboardingView: View {
             }
         }
         .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.hidden, for: .navigationBar)
+        .toolbar(.hidden, for: .navigationBar)
+        .navigationBarBackButtonHidden(true)
+        .ignoresSafeArea(.all, edges: .top)
     }
 }
 
-// MARK: - Shared Onboarding Page Style
+// MARK: - Shared Onboarding Page Style (with swipe hint)
 struct OnboardingPageStyle<Content: View>: View {
     let title: String
     let bodyText: String
-    let ctaText: String
-    let ctaAction: () -> Void
+    let ctaText: String?
+    let ctaAction: (() -> Void)?
     let secondaryCtaText: String?
     let secondaryCtaAction: (() -> Void)?
+    let showSwipeHint: Bool
     @ViewBuilder let visualContent: Content
     
     init(
         title: String,
         bodyText: String,
-        ctaText: String,
-        ctaAction: @escaping () -> Void,
+        ctaText: String? = nil,
+        ctaAction: (() -> Void)? = nil,
         secondaryCtaText: String? = nil,
         secondaryCtaAction: (() -> Void)? = nil,
+        showSwipeHint: Bool = true,
         @ViewBuilder visualContent: () -> Content
     ) {
         self.title = title
@@ -78,13 +84,14 @@ struct OnboardingPageStyle<Content: View>: View {
         self.ctaAction = ctaAction
         self.secondaryCtaText = secondaryCtaText
         self.secondaryCtaAction = secondaryCtaAction
+        self.showSwipeHint = showSwipeHint
         self.visualContent = visualContent()
     }
     
     var body: some View {
         ScrollView {
             VStack(spacing: 0) {
-                Spacer(minLength: 20)
+                Spacer(minLength: 40)
                 
                 // Visual Content
                 visualContent
@@ -108,40 +115,57 @@ struct OnboardingPageStyle<Content: View>: View {
                         .padding(.horizontal, 40)
                 }
                 
-                Spacer(minLength: 24)
-                
-                // CTA Button
-                VStack(spacing: 12) {
-                    Button {
-                        Haptics.medium()
-                        ctaAction()
-                    } label: {
-                        HStack {
-                            Text(ctaText)
-                                .font(.system(size: 17, weight: .semibold))
-                            Image(systemName: "arrow.right")
-                                .font(.system(size: 16, weight: .semibold))
-                        }
-                        .foregroundColor(AppTheme.primaryText)
-                        .frame(maxWidth: .infinity)
-                        .padding(.vertical, 16)
-                        .background(AppTheme.accent)
-                        .cornerRadius(16)
-                    }
-                    .padding(.horizontal, 40)
-                    
-                    if let secondaryText = secondaryCtaText, let secondaryAction = secondaryCtaAction {
+                // CTA Button (if provided) - inside scrollable
+                if let ctaText = ctaText, let ctaAction = ctaAction {
+                    VStack(spacing: 12) {
                         Button {
-                            Haptics.light()
-                            secondaryAction()
+                            Haptics.medium()
+                            ctaAction()
                         } label: {
-                            Text(secondaryText)
-                                .font(.system(size: 16))
-                                .foregroundColor(AppTheme.secondaryText)
+                            HStack {
+                                Text(ctaText)
+                                    .font(.system(size: 17, weight: .semibold))
+                                Image(systemName: "arrow.right")
+                                    .font(.system(size: 16, weight: .semibold))
+                            }
+                            .foregroundColor(AppTheme.primaryText)
+                            .frame(maxWidth: .infinity)
+                            .padding(.vertical, 16)
+                            .background(AppTheme.accent)
+                            .cornerRadius(16)
+                        }
+                        .padding(.horizontal, 40)
+                        .padding(.top, 40)
+                        
+                        if let secondaryText = secondaryCtaText, let secondaryAction = secondaryCtaAction {
+                            Button {
+                                Haptics.light()
+                                secondaryAction()
+                            } label: {
+                                Text(secondaryText)
+                                    .font(.system(size: 16))
+                                    .foregroundColor(AppTheme.secondaryText)
+                            }
                         }
                     }
+                    .padding(.bottom, 60)
+                } else if showSwipeHint {
+                    // Swipe hint for pages without buttons
+                    VStack(spacing: 12) {
+                        Image(systemName: "arrow.right")
+                            .font(.system(size: 20, weight: .medium))
+                            .foregroundColor(AppTheme.secondaryText.opacity(0.6))
+                            .rotationEffect(.degrees(-30))
+                        
+                        Text("Swipe to continue")
+                            .font(.system(size: 14))
+                            .foregroundColor(AppTheme.secondaryText.opacity(0.6))
+                    }
+                    .padding(.top, 40)
+                    .padding(.bottom, 60)
+                } else {
+                    Spacer(minLength: 60)
                 }
-                .padding(.bottom, 50)
             }
         }
     }
@@ -155,12 +179,7 @@ struct WelcomeOnboardingView: View {
         OnboardingPageStyle(
             title: "Welcome to Pockets",
             bodyText: "A simple, private way to track your spending and stay on top of your money.\n\nNo ads. No subscriptions. \n\nNo data tracking.\n\nJust you and your wallet.",
-            ctaText: "Get Started",
-            ctaAction: {
-                withAnimation {
-                    currentPage = 1
-                }
-            }
+            showSwipeHint: true
         ) {
             Image("AppLogo")
                 .resizable()
@@ -180,12 +199,7 @@ struct TrackExpensesOnboardingView: View {
         OnboardingPageStyle(
             title: "Track expenses in seconds",
             bodyText: "Record your spending with a clean interface, custom categories, and a smooth numeric keypad.\n\nFast. Simple. No clutter.",
-            ctaText: "Next",
-            ctaAction: {
-                withAnimation {
-                    currentPage = 2
-                }
-            }
+            showSwipeHint: true
         ) {
             VStack(spacing: 20) {
                 // Mock Add Expense Screen
@@ -252,12 +266,7 @@ struct SeeMoneyOnboardingView: View {
         OnboardingPageStyle(
             title: "Understand your habits",
             bodyText: "Dashboard insights, monthly charts, and a calendar view help you see where your money goes — and stay in control.",
-            ctaText: "Next",
-            ctaAction: {
-                withAnimation {
-                    currentPage = 3
-                }
-            }
+            showSwipeHint: true
         ) {
             HStack(spacing: 16) {
                 // Mock Chart
@@ -327,12 +336,7 @@ struct PrivateOnboardingView: View {
         OnboardingPageStyle(
             title: "Your data stays with you",
             bodyText: "Everything is stored locally on your device.\n\nNo accounts. No servers. No one looking over your shoulder.\n\nYour money, your business.",
-            ctaText: "Next",
-            ctaAction: {
-                withAnimation {
-                    currentPage = 4
-                }
-            }
+            showSwipeHint: true
         ) {
             VStack(spacing: 24) {
                 Image(systemName: "lock.shield.fill")
@@ -397,7 +401,8 @@ struct FreeOnboardingView: View {
                 } else {
                     showingNotificationPermission = true
                 }
-            }
+            },
+            showSwipeHint: false
         ) {
             VStack(spacing: 24) {
                 Image(systemName: "heart.fill")

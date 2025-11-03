@@ -21,8 +21,44 @@ struct ContentView: View {
     }()
     @State private var selectedTab = 1 // Dashboard in center
     @State private var previousTab = 1
+    @State private var swipeDirection: SwipeDirection = .none
+    
+    enum SwipeDirection {
+        case left, right, none
+    }
     
     // Visual tab order: Dashboard (1), History (2), Recurring (0), Settings (3)
+    // Map visual position to tab number: [Dashboard=0, History=1, Recurring=2, Settings=3]
+    private func getVisualPosition(for tab: Int) -> Int {
+        switch tab {
+        case 1: return 0  // Dashboard is first visually
+        case 2: return 1  // History is second
+        case 0: return 2  // Recurring is third
+        case 3: return 3  // Settings is fourth
+        default: return 0
+        }
+    }
+    
+    private func transitionForTab() -> AnyTransition {
+        let direction: Edge = {
+            if swipeDirection == .left {
+                return .trailing // New page comes from right (swipe left = forward)
+            } else if swipeDirection == .right {
+                return .leading // New page comes from left (swipe right = backward)
+            } else {
+                // Default: determine direction based on visual position order
+                let prevPos = getVisualPosition(for: previousTab)
+                let newPos = getVisualPosition(for: selectedTab)
+                return newPos > prevPos ? .trailing : .leading
+            }
+        }()
+        
+        return .asymmetric(
+            insertion: .move(edge: direction).combined(with: .opacity),
+            removal: .move(edge: direction == .trailing ? .leading : .trailing).combined(with: .opacity)
+        )
+    }
+    
     private func getNextTab() -> Int? {
         switch selectedTab {
         case 1: return 2  // Dashboard -> History
@@ -52,28 +88,16 @@ struct ContentView: View {
             Group {
                 if selectedTab == 0 {
                     RecurringView(viewModel: viewModel)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: previousTab < selectedTab ? .trailing : .leading).combined(with: .opacity),
-                            removal: .move(edge: previousTab < selectedTab ? .leading : .trailing).combined(with: .opacity)
-                        ))
+                        .transition(transitionForTab())
                 } else if selectedTab == 1 {
                     DashboardView(viewModel: viewModel)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: previousTab < selectedTab ? .trailing : .leading).combined(with: .opacity),
-                            removal: .move(edge: previousTab < selectedTab ? .leading : .trailing).combined(with: .opacity)
-                        ))
+                        .transition(transitionForTab())
                 } else if selectedTab == 2 {
                     HistoryView(viewModel: viewModel)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: previousTab < selectedTab ? .trailing : .leading).combined(with: .opacity),
-                            removal: .move(edge: previousTab < selectedTab ? .leading : .trailing).combined(with: .opacity)
-                        ))
+                        .transition(transitionForTab())
                 } else if selectedTab == 3 {
                     SettingsView(viewModel: viewModel)
-                        .transition(.asymmetric(
-                            insertion: .move(edge: previousTab < selectedTab ? .trailing : .leading).combined(with: .opacity),
-                            removal: .move(edge: previousTab < selectedTab ? .leading : .trailing).combined(with: .opacity)
-                        ))
+                        .transition(transitionForTab())
                 }
             }
             .animation(.spring(response: 0.35, dampingFraction: 0.9), value: selectedTab)
@@ -89,6 +113,7 @@ struct ContentView: View {
                             if horizontalAmount > 0 {
                                 // Swipe right - go to previous tab (in visual order)
                                 if let previous = getPreviousTab() {
+                                    swipeDirection = .right
                                     Haptics.selection()
                                     withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
                                         selectedTab = previous
@@ -97,6 +122,7 @@ struct ContentView: View {
                             } else {
                                 // Swipe left - go to next tab (in visual order)
                                 if let next = getNextTab() {
+                                    swipeDirection = .left
                                     Haptics.selection()
                                     withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
                                         selectedTab = next
@@ -108,6 +134,10 @@ struct ContentView: View {
             )
             .onChange(of: selectedTab) { oldValue, newValue in
                 previousTab = oldValue
+                // Reset swipe direction after animation completes
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.4) {
+                    swipeDirection = .none
+                }
             }
             
             // Bottom tab bar
@@ -119,6 +149,9 @@ struct ContentView: View {
                         label: "Dashboard",
                         isSelected: selectedTab == 1,
                         action: {
+                            let prevPos = getVisualPosition(for: selectedTab)
+                            let newPos = getVisualPosition(for: 1)
+                            swipeDirection = newPos > prevPos ? .left : .right
                             Haptics.selection()
                             withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
                                 selectedTab = 1
@@ -131,6 +164,9 @@ struct ContentView: View {
                         label: "History",
                         isSelected: selectedTab == 2,
                         action: {
+                            let prevPos = getVisualPosition(for: selectedTab)
+                            let newPos = getVisualPosition(for: 2)
+                            swipeDirection = newPos > prevPos ? .left : .right
                             Haptics.selection()
                             withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
                                 selectedTab = 2
@@ -143,6 +179,9 @@ struct ContentView: View {
                         label: "Recurring",
                         isSelected: selectedTab == 0,
                         action: {
+                            let prevPos = getVisualPosition(for: selectedTab)
+                            let newPos = getVisualPosition(for: 0)
+                            swipeDirection = newPos > prevPos ? .left : .right
                             Haptics.selection()
                             withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
                                 selectedTab = 0
@@ -155,6 +194,9 @@ struct ContentView: View {
                         label: "Settings",
                         isSelected: selectedTab == 3,
                         action: {
+                            let prevPos = getVisualPosition(for: selectedTab)
+                            let newPos = getVisualPosition(for: 3)
+                            swipeDirection = newPos > prevPos ? .left : .right
                             Haptics.selection()
                             withAnimation(.spring(response: 0.35, dampingFraction: 0.9)) {
                                 selectedTab = 3

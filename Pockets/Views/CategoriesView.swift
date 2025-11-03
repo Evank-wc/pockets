@@ -24,6 +24,9 @@ struct CategoriesView: View {
                     }
                 }
                 .scrollContentBackground(.hidden)
+                .safeAreaInset(edge: .bottom) {
+                    Color.clear.frame(height: 80)
+                }
             }
             .navigationTitle("Categories")
             .toolbar {

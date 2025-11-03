@@ -20,11 +20,19 @@ class StorageService: ObservableObject {
         var hasError = false
         container.loadPersistentStores { description, error in
             if let error = error {
-                print("❌ Core Data failed to load: \(error.localizedDescription)")
-                print("⚠️ Store URL: \(description.url?.absoluteString ?? "unknown")")
+                // Use deferred logging to prevent console flooding during initialization
+                DispatchQueue.main.async {
+                    AppLogger.error("Core Data failed to load: \(error.localizedDescription)")
+                    if let url = description.url {
+                        AppLogger.error("Store URL: \(url.absoluteString)")
+                    }
+                }
                 hasError = true
             } else {
-                print("✅ CoreData loaded successfully")
+                // Defer success message to avoid console flooding
+                DispatchQueue.main.async {
+                    AppLogger.info("CoreData loaded successfully")
+                }
                 // Setup default categories after successful load
                 DispatchQueue.main.async { [weak self] in
                     self?.setupDefaultCategoriesIfNeeded()
@@ -38,7 +46,9 @@ class StorageService: ObservableObject {
             container.viewContext.automaticallyMergesChangesFromParent = true
             container.viewContext.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         } else {
-            print("⚠️ CoreData container loaded with errors, some features may not work")
+            DispatchQueue.main.async {
+                AppLogger.warning("CoreData container loaded with errors, some features may not work")
+            }
         }
         
         return container

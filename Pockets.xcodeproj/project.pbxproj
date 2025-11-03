@@ -36,6 +36,7 @@
 		3B6E407C2EB7800700EA4E38 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E407D2EB7800700EA4E38 /* SplashScreenView.swift */; };
 		3B6E407E2EB7800800EA4E38 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E407F2EB7800800EA4E38 /* CurrencyManager.swift */; };
 		3B6E40802EB7800900EA4E38 /* CurrencySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40812EB7800900EA4E38 /* CurrencySettingsView.swift */; };
+		9285E4BDDBBE4ADC9032BB9B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84E8BDBAF1345B7B3AC111B /* Logger.swift */; };
 		3B6E40842EB7800B00EA4E38 /* CSVExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40852EB7800B00EA4E38 /* CSVExportService.swift */; };
 		3B6E40862EB7800C00EA4E38 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40872EB7800C00EA4E38 /* ShareSheet.swift */; };
 		3B6E40882EB7800D00EA4E38 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40892EB7800D00EA4E38 /* OnboardingView.swift */; };
@@ -73,6 +74,7 @@
 		3B6E407B2EB7800600EA4E38 /* ContactView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		3B6E407D2EB7800700EA4E38 /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		3B6E407F2EB7800800EA4E38 /* CurrencyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
+		C84E8BDBAF1345B7B3AC111B /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3B6E40812EB7800900EA4E38 /* CurrencySettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencySettingsView.swift; sourceTree = "<group>"; };
 		3B6E40852EB7800B00EA4E38 /* CSVExportService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVExportService.swift; sourceTree = "<group>"; };
 		3B6E40872EB7800C00EA4E38 /* ShareSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				3B6E403B2EB76F4300EA4E38 /* Haptics.swift */,
 				3B6E406B2EB7720000EA4E38 /* Theme.swift */,
 				3B6E407F2EB7800800EA4E38 /* CurrencyManager.swift */,
+				C84E8BDBAF1345B7B3AC111B /* Logger.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -318,6 +321,7 @@
 				3B6E407E2EB7800800EA4E38 /* CurrencyManager.swift in Sources */,
 				3B6E40802EB7800900EA4E38 /* CurrencySettingsView.swift in Sources */,
 				3B6E40842EB7800B00EA4E38 /* CSVExportService.swift in Sources */,
+				9285E4BDDBBE4ADC9032BB9B /* Logger.swift in Sources */,
 				3B6E40862EB7800C00EA4E38 /* ShareSheet.swift in Sources */,
 				3B6E40882EB7800D00EA4E38 /* OnboardingView.swift in Sources */,
 				3B6E408A2EB7800E00EA4E38 /* NotificationPermissionView.swift in Sources */,

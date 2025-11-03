@@ -7,12 +7,22 @@
 
 import SwiftUI
 
+/// Identifiable wrapper for URL to use with .sheet(item:)
+struct ShareableFile: Identifiable {
+    let id: UUID
+    let url: URL
+    
+    init(url: URL) {
+        self.id = UUID()
+        self.url = url
+    }
+}
+
 /// Settings and app information view
 struct SettingsView: View {
     @ObservedObject var viewModel: ExpenseViewModel
     @State private var showingResetAlert = false
-    @State private var showingShareSheet = false
-    @State private var csvFileURL: URL?
+    @State private var csvFileToShare: ShareableFile?
     
     var body: some View {
         NavigationStack {
@@ -248,10 +258,8 @@ struct SettingsView: View {
                     }
                 )
             }
-            .sheet(isPresented: $showingShareSheet) {
-                if let fileURL = csvFileURL {
-                    ShareSheet(items: [fileURL])
-                }
+            .sheet(item: $csvFileToShare) { shareableFile in
+                ShareSheet(items: [shareableFile.url])
             }
         }
     }
@@ -259,16 +267,18 @@ struct SettingsView: View {
     private func exportToCSV() {
         Haptics.light()
         
-        // Generate CSV file
-        if let fileURL = CSVExportService.shared.createCSVFile(
-            expenses: viewModel.expenses,
-            categories: viewModel.categories
-        ) {
-            csvFileURL = fileURL
-            showingShareSheet = true
-        } else {
-            // Show error if export fails
-            Haptics.error()
+        // Generate CSV file on main thread to ensure state updates properly
+        Task { @MainActor in
+            if let fileURL = CSVExportService.shared.createCSVFile(
+                expenses: viewModel.expenses,
+                categories: viewModel.categories
+            ) {
+                // Wrap in ShareableFile - sheet will present automatically via @State
+                csvFileToShare = ShareableFile(url: fileURL)
+            } else {
+                // Show error if export fails
+                Haptics.error()
+            }
         }
     }
 }

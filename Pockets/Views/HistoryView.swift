@@ -70,18 +70,26 @@ struct HistoryView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     } else {
                         List {
-                            ForEach(groupedExpenses, id: \.key) { group in
-                                Section(header: 
-                                    Text(group.key)
-                                        .foregroundColor(AppTheme.secondaryText)
-                                        .font(.system(size: 14, weight: .semibold))
-                                        .textCase(.uppercase)
-                                        .tracking(0.5)
-                                ) {
-                                    ForEach(group.value) { expense in
-                                        ExpenseRowView(expense: expense, viewModel: viewModel)
-                                            .listRowBackground(AppTheme.cardBackground)
+                            if shouldGroupByDate {
+                                ForEach(groupedExpenses, id: \.key) { group in
+                                    Section(header: 
+                                        Text(group.key)
+                                            .foregroundColor(AppTheme.secondaryText)
+                                            .font(.system(size: 14, weight: .semibold))
+                                            .textCase(.uppercase)
+                                            .tracking(0.5)
+                                    ) {
+                                        ForEach(group.value) { expense in
+                                            ExpenseRowView(expense: expense, viewModel: viewModel)
+                                                .listRowBackground(AppTheme.cardBackground)
+                                        }
                                     }
+                                }
+                            } else {
+                                // Flat list when not grouping by date
+                                ForEach(sortedExpenses) { expense in
+                                    ExpenseRowView(expense: expense, viewModel: viewModel)
+                                        .listRowBackground(AppTheme.cardBackground)
                                 }
                             }
                         }
@@ -149,11 +157,31 @@ struct HistoryView: View {
         }
     }
     
+    private var shouldGroupByDate: Bool {
+        sortOption == .dateNewest || sortOption == .dateOldest
+    }
+    
     private var groupedExpenses: [(key: String, value: [Expense])] {
+        guard shouldGroupByDate else {
+            return []
+        }
         let grouped = Dictionary(grouping: sortedExpenses) { expense in
             AppFormatter.dateString(from: expense.date)
         }
-        return grouped.sorted { $0.key > $1.key }
+        // Sort by the actual date of the first expense in each group, not by the string key
+        return grouped.map { (key: $0.key, value: $0.value) }
+            .sorted { group1, group2 in
+                guard let date1 = group1.value.first?.date,
+                      let date2 = group2.value.first?.date else {
+                    return false
+                }
+                // Use the same sort order as the sortOption
+                if sortOption == .dateNewest {
+                    return date1 > date2
+                } else {
+                    return date1 < date2
+                }
+            }
     }
 }
 
@@ -282,6 +310,10 @@ struct FilterView: View {
     @State private var endDate: Date = Calendar.current.startOfDay(for: Date())
     @State private var useDateRange: Bool = false
     
+    private var calendar: Calendar {
+        Calendar.current
+    }
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -309,11 +341,8 @@ struct FilterView: View {
                         Picker("Category", selection: $viewModel.selectedCategoryFilter) {
                             Text("All Categories").tag(nil as UUID?)
                             ForEach(viewModel.categories) { category in
-                                HStack {
-                                    Text(category.icon)
-                                    Text(category.name)
-                                }
-                                .tag(category.id as UUID?)
+                                Text(category.name)
+                                    .tag(category.id as UUID?)
                             }
                         }
                         .foregroundColor(AppTheme.primaryText)
@@ -402,10 +431,11 @@ struct FilterView: View {
     }
     
     private func updateDateRange() {
-        let calendar = Calendar.current
         let start = calendar.startOfDay(for: startDate)
         let end = calendar.startOfDay(for: endDate)
-        viewModel.dateRangeFilter = start...end
+        // Ensure end is not before start
+        let finalEnd = end >= start ? end : start
+        viewModel.dateRangeFilter = start...finalEnd
     }
 }
 

@@ -63,6 +63,10 @@ struct NotificationSettingsView: View {
                         }
                         .onChange(of: notificationManager.budgetAlertEnabled) { _, newValue in
                             notificationManager.updateBudgetAlert(enabled: newValue)
+                            // Check if notification should be sent after enabling budget alerts
+                            if newValue {
+                                viewModel.checkBudgetNotification()
+                            }
                         }
                         
                         if notificationManager.budgetAlertEnabled {
@@ -88,6 +92,10 @@ struct NotificationSettingsView: View {
                             .padding(.vertical, 4)
                             .onChange(of: notificationManager.budgetThreshold) { _, _ in
                                 notificationManager.updateBudgetAlert(enabled: true)
+                                // Reset notification tracking when threshold changes to allow re-notification
+                                NotificationService.shared.resetCurrentMonthBudgetTracking()
+                                // Check if notification should be sent after threshold update
+                                viewModel.checkBudgetNotification()
                             }
                         }
                     } header: {

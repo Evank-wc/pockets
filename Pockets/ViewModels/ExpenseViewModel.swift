@@ -30,6 +30,8 @@ class ExpenseViewModel: ObservableObject {
         loadDataSafely()
         setupObservers()
         setupCurrencyObserver()
+        // Clear old budget alert tracking
+        NotificationService.shared.clearOldBudgetAlertTracking()
     }
     
     /// Safely loads data with comprehensive error handling
@@ -102,16 +104,40 @@ class ExpenseViewModel: ObservableObject {
         Haptics.medium()
     }
     
-    private func checkBudgetNotification() {
+    func checkBudgetNotification() {
+        print("\n" + String(repeating: "=", count: 60))
+        print("🔍 BUDGET NOTIFICATION CHECK STARTED")
+        print(String(repeating: "=", count: 60))
+        
         let settingsManager = NotificationSettingsManager.shared
+        print("📋 Settings: enabled=\(settingsManager.budgetAlertEnabled), budget=\(monthlyBudget), threshold=\(settingsManager.budgetThreshold * 100)%")
+        
         if settingsManager.budgetAlertEnabled && monthlyBudget > 0 {
+            // Always check the current month's expenses for budget notifications
+            // regardless of which month is selected in the UI
+            let calendar = Calendar.current
+            let now = Date()
+            let currentMonthSpending = storageService.getMonthlyTotal(for: now, type: .expense)
+            
+            print("💰 Current month spending: \(currentMonthSpending)")
+            print("💵 Monthly budget: \(monthlyBudget)")
+            print("📊 Threshold: \(settingsManager.budgetThreshold * 100)%")
+            print("")
+            
             NotificationService.shared.checkBudgetThreshold(
-                currentSpending: currentMonthExpenses,
+                currentSpending: currentMonthSpending,
                 budget: monthlyBudget,
                 threshold: settingsManager.budgetThreshold,
                 enabled: true
             )
+        } else {
+            print("⏭️ Budget notification check skipped:")
+            print("   - Budget alerts enabled: \(settingsManager.budgetAlertEnabled)")
+            print("   - Monthly budget set: \(monthlyBudget > 0 ? "Yes (\(monthlyBudget))" : "No")")
         }
+        
+        print(String(repeating: "=", count: 60))
+        print("✅ BUDGET NOTIFICATION CHECK COMPLETED\n")
     }
     
     func deleteExpense(_ expense: Expense) {
@@ -143,6 +169,10 @@ class ExpenseViewModel: ObservableObject {
     func setMonthlyBudget(_ budget: Decimal) {
         monthlyBudget = budget
         UserDefaults.standard.set(budget.doubleValue, forKey: "monthlyBudget")
+        // Reset notification tracking when budget changes to allow re-notification
+        NotificationService.shared.resetCurrentMonthBudgetTracking()
+        // Check if notification should be sent after budget update
+        checkBudgetNotification()
         Haptics.medium()
     }
     
@@ -214,8 +244,10 @@ class ExpenseViewModel: ObservableObject {
                 let calendar = Calendar.current
                 let expenseStartOfDay = calendar.startOfDay(for: expense.date)
                 let rangeStart = calendar.startOfDay(for: dateRange.lowerBound)
-                let rangeEnd = calendar.startOfDay(for: dateRange.upperBound)
-                return expenseStartOfDay >= rangeStart && expenseStartOfDay <= rangeEnd
+                let rangeEndStart = calendar.startOfDay(for: dateRange.upperBound)
+                // Include the entire end date by adding one day and using < instead of <=
+                let rangeEnd = calendar.date(byAdding: .day, value: 1, to: rangeEndStart) ?? rangeEndStart
+                return expenseStartOfDay >= rangeStart && expenseStartOfDay < rangeEnd
             }
         }
         

@@ -157,11 +157,18 @@ class StorageService: ObservableObject {
         }
     }
     
-    func fetchExpenses(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor] = [NSSortDescriptor(keyPath: \ExpenseEntity.date, ascending: false)]) -> [Expense] {
+    func fetchExpenses(predicate: NSPredicate? = nil, sortDescriptors: [NSSortDescriptor] = [NSSortDescriptor(key: "date", ascending: false)]) -> [Expense] {
         let context = viewContext
+        
+        // Refresh context to ensure we get latest data from persistent store
+        context.refreshAllObjects()
+        
         let fetchRequest: NSFetchRequest<ExpenseEntity> = ExpenseEntity.fetchRequest()
         fetchRequest.predicate = predicate
         fetchRequest.sortDescriptors = sortDescriptors
+        
+        // Don't use cached results - always fetch fresh
+        fetchRequest.returnsObjectsAsFaults = false
         
         do {
             let entities = try context.fetch(fetchRequest)

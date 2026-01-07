@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 import Combine
 import UserNotifications
+import WidgetKit
 
 /// ViewModel managing expense tracking state and business logic
 class ExpenseViewModel: ObservableObject {
@@ -94,6 +95,7 @@ class ExpenseViewModel: ObservableObject {
         storageService.createExpense(amount: amount, categoryID: categoryID, note: note, date: date, type: type)
         loadData()
         checkBudgetNotification()
+        refreshWidgets()
         Haptics.success()
     }
     
@@ -101,6 +103,7 @@ class ExpenseViewModel: ObservableObject {
         storageService.updateExpense(expense)
         loadData()
         checkBudgetNotification()
+        refreshWidgets()
         Haptics.medium()
     }
     
@@ -143,6 +146,7 @@ class ExpenseViewModel: ObservableObject {
     func deleteExpense(_ expense: Expense) {
         storageService.deleteExpense(expense)
         loadData()
+        refreshWidgets()
         Haptics.light()
     }
     
@@ -173,7 +177,16 @@ class ExpenseViewModel: ObservableObject {
         NotificationService.shared.resetCurrentMonthBudgetTracking()
         // Check if notification should be sent after budget update
         checkBudgetNotification()
+        refreshWidgets()
         Haptics.medium()
+    }
+    
+    // MARK: - Widget Refresh
+    private func refreshWidgets() {
+        // Refresh widgets immediately when data changes
+        if #available(iOS 14.0, *) {
+            WidgetCenter.shared.reloadTimelines(ofKind: "QuickAddWidget")
+        }
     }
     
     // MARK: - Reset All Data

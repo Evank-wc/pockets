@@ -15,7 +15,6 @@
 		3B6E404F2EB76F4300EA4E38 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E403A2EB76F4300EA4E38 /* Formatter.swift */; };
 		3B6E40502EB76F4300EA4E38 /* Haptics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E403B2EB76F4300EA4E38 /* Haptics.swift */; };
 		3B6E40512EB76F4300EA4E38 /* AmountKeypadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E403D2EB76F4300EA4E38 /* AmountKeypadView.swift */; };
-		3B6E40822EB7800A00EA4E38 /* DateWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40832EB7800A00EA4E38 /* DateWheelPicker.swift */; };
 		3B6E40522EB76F4300EA4E38 /* AddExpenseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E403F2EB76F4300EA4E38 /* AddExpenseView.swift */; };
 		3B6E40532EB76F4300EA4E38 /* CategoriesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40402EB76F4300EA4E38 /* CategoriesView.swift */; };
 		3B6E40542EB76F4300EA4E38 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40412EB76F4300EA4E38 /* DashboardView.swift */; };
@@ -36,13 +35,53 @@
 		3B6E407C2EB7800700EA4E38 /* SplashScreenView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E407D2EB7800700EA4E38 /* SplashScreenView.swift */; };
 		3B6E407E2EB7800800EA4E38 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E407F2EB7800800EA4E38 /* CurrencyManager.swift */; };
 		3B6E40802EB7800900EA4E38 /* CurrencySettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40812EB7800900EA4E38 /* CurrencySettingsView.swift */; };
-		9285E4BDDBBE4ADC9032BB9B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84E8BDBAF1345B7B3AC111B /* Logger.swift */; };
+		3B6E40822EB7800A00EA4E38 /* DateWheelPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40832EB7800A00EA4E38 /* DateWheelPicker.swift */; };
 		3B6E40842EB7800B00EA4E38 /* CSVExportService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40852EB7800B00EA4E38 /* CSVExportService.swift */; };
 		3B6E40862EB7800C00EA4E38 /* ShareSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40872EB7800C00EA4E38 /* ShareSheet.swift */; };
 		3B6E40882EB7800D00EA4E38 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40892EB7800D00EA4E38 /* OnboardingView.swift */; };
 		3B6E408A2EB7800E00EA4E38 /* NotificationPermissionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E408B2EB7800E00EA4E38 /* NotificationPermissionView.swift */; };
 		3B6E408E2EB7801000EA4E38 /* AboutAndPrivacyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E408F2EB7801000EA4E38 /* AboutAndPrivacyView.swift */; };
+		3BD7FE432F0E082A007F69D3 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD7FE422F0E082A007F69D3 /* WidgetKit.framework */; };
+		3BD7FE452F0E082A007F69D3 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3BD7FE442F0E082A007F69D3 /* SwiftUI.framework */; };
+		3BD7FE482F0E082A007F69D3 /* PocketsWidgetBundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD7FE472F0E082A007F69D3 /* PocketsWidgetBundle.swift */; };
+		3BD7FE4A2F0E082A007F69D3 /* PocketsWidgetLiveActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD7FE492F0E082A007F69D3 /* PocketsWidgetLiveActivity.swift */; };
+		3BD7FE4C2F0E082A007F69D3 /* PocketsWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD7FE4B2F0E082A007F69D3 /* PocketsWidget.swift */; };
+		3BD7FE4E2F0E082C007F69D3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3BD7FE4D2F0E082C007F69D3 /* Assets.xcassets */; };
+		3BD7FE522F0E082C007F69D3 /* PocketsWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 3BD7FE402F0E082A007F69D3 /* PocketsWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		3BD7FE5B2F0E0A81007F69D3 /* QuickAddExpenseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD7FE592F0E0A81007F69D3 /* QuickAddExpenseIntent.swift */; };
+		3BD7FE5C2F0E0A81007F69D3 /* QuickAddExpenseIntent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD7FE592F0E0A81007F69D3 /* QuickAddExpenseIntent.swift */; };
+		3BD7FE5F2F0E0A9A007F69D3 /* QuickAddWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3BD7FE5D2F0E0A9A007F69D3 /* QuickAddWidget.swift */; };
+		3BD7FE602F0E0B0B007F69D3 /* StorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40462EB76F4300EA4E38 /* StorageService.swift */; };
+		3BD7FE612F0E0B1A007F69D3 /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E403A2EB76F4300EA4E38 /* Formatter.swift */; };
+		3BD7FE622F0E0B26007F69D3 /* CurrencyManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E407F2EB7800800EA4E38 /* CurrencyManager.swift */; };
+		3BD7FE632F0E0B36007F69D3 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E40482EB76F4300EA4E38 /* Category.swift */; };
+		3BD7FE642F0E0B39007F69D3 /* Expense.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3B6E404B2EB76F4300EA4E38 /* Expense.swift */; };
+		9285E4BDDBBE4ADC9032BB9B /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C84E8BDBAF1345B7B3AC111B /* Logger.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3BD7FE502F0E082C007F69D3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3B6E3FFF2EB764C500EA4E38 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3BD7FE3F2F0E082A007F69D3;
+			remoteInfo = PocketsWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3BD7FE532F0E082C007F69D3 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				3BD7FE522F0E082C007F69D3 /* PocketsWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3B6E40072EB764C500EA4E38 /* Pockets.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pockets.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -54,7 +93,6 @@
 		3B6E403A2EB76F4300EA4E38 /* Formatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		3B6E403B2EB76F4300EA4E38 /* Haptics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Haptics.swift; sourceTree = "<group>"; };
 		3B6E403D2EB76F4300EA4E38 /* AmountKeypadView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AmountKeypadView.swift; sourceTree = "<group>"; };
-		3B6E40832EB7800A00EA4E38 /* DateWheelPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateWheelPicker.swift; sourceTree = "<group>"; };
 		3B6E403F2EB76F4300EA4E38 /* AddExpenseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddExpenseView.swift; sourceTree = "<group>"; };
 		3B6E40402EB76F4300EA4E38 /* CategoriesView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoriesView.swift; sourceTree = "<group>"; };
 		3B6E40412EB76F4300EA4E38 /* DashboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
@@ -74,13 +112,26 @@
 		3B6E407B2EB7800600EA4E38 /* ContactView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactView.swift; sourceTree = "<group>"; };
 		3B6E407D2EB7800700EA4E38 /* SplashScreenView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashScreenView.swift; sourceTree = "<group>"; };
 		3B6E407F2EB7800800EA4E38 /* CurrencyManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencyManager.swift; sourceTree = "<group>"; };
-		C84E8BDBAF1345B7B3AC111B /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3B6E40812EB7800900EA4E38 /* CurrencySettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CurrencySettingsView.swift; sourceTree = "<group>"; };
+		3B6E40832EB7800A00EA4E38 /* DateWheelPicker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateWheelPicker.swift; sourceTree = "<group>"; };
 		3B6E40852EB7800B00EA4E38 /* CSVExportService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CSVExportService.swift; sourceTree = "<group>"; };
 		3B6E40872EB7800C00EA4E38 /* ShareSheet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareSheet.swift; sourceTree = "<group>"; };
 		3B6E40892EB7800D00EA4E38 /* OnboardingView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		3B6E408B2EB7800E00EA4E38 /* NotificationPermissionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationPermissionView.swift; sourceTree = "<group>"; };
 		3B6E408F2EB7801000EA4E38 /* AboutAndPrivacyView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutAndPrivacyView.swift; sourceTree = "<group>"; };
+		3BD7FE402F0E082A007F69D3 /* PocketsWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PocketsWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		3BD7FE422F0E082A007F69D3 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		3BD7FE442F0E082A007F69D3 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		3BD7FE472F0E082A007F69D3 /* PocketsWidgetBundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketsWidgetBundle.swift; sourceTree = "<group>"; };
+		3BD7FE492F0E082A007F69D3 /* PocketsWidgetLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketsWidgetLiveActivity.swift; sourceTree = "<group>"; };
+		3BD7FE4B2F0E082A007F69D3 /* PocketsWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PocketsWidget.swift; sourceTree = "<group>"; };
+		3BD7FE4D2F0E082C007F69D3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3BD7FE4F2F0E082C007F69D3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3BD7FE572F0E0897007F69D3 /* Pockets.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Pockets.entitlements; sourceTree = "<group>"; };
+		3BD7FE582F0E08B2007F69D3 /* PocketsWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PocketsWidgetExtension.entitlements; sourceTree = "<group>"; };
+		3BD7FE592F0E0A81007F69D3 /* QuickAddExpenseIntent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickAddExpenseIntent.swift; sourceTree = "<group>"; };
+		3BD7FE5D2F0E0A9A007F69D3 /* QuickAddWidget.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickAddWidget.swift; sourceTree = "<group>"; };
+		C84E8BDBAF1345B7B3AC111B /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,14 +142,26 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3BD7FE3D2F0E082A007F69D3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BD7FE452F0E082A007F69D3 /* SwiftUI.framework in Frameworks */,
+				3BD7FE432F0E082A007F69D3 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		3B6E3FFE2EB764C500EA4E38 = {
 			isa = PBXGroup;
 			children = (
+				3BD7FE582F0E08B2007F69D3 /* PocketsWidgetExtension.entitlements */,
 				3B6E405E2EB770AF00EA4E38 /* README.md */,
 				3B6E40092EB764C500EA4E38 /* Pockets */,
+				3BD7FE462F0E082A007F69D3 /* PocketsWidget */,
+				3BD7FE412F0E082A007F69D3 /* Frameworks */,
 				3B6E40082EB764C500EA4E38 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -107,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				3B6E40072EB764C500EA4E38 /* Pockets.app */,
+				3BD7FE402F0E082A007F69D3 /* PocketsWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -114,6 +178,8 @@
 		3B6E40092EB764C500EA4E38 /* Pockets */ = {
 			isa = PBXGroup;
 			children = (
+				3BD7FE5A2F0E0A81007F69D3 /* Intents */,
+				3BD7FE572F0E0897007F69D3 /* Pockets.entitlements */,
 				3B6E40452EB76F4300EA4E38 /* Extensions */,
 				3B6E404E2EB76F4300EA4E38 /* Models */,
 				3B6E40472EB76F4300EA4E38 /* Services */,
@@ -188,15 +254,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		3B6E408C2EB7800F00EA4E38 /* Onboarding */ = {
-			isa = PBXGroup;
-			children = (
-				3B6E40892EB7800D00EA4E38 /* OnboardingView.swift */,
-				3B6E408B2EB7800E00EA4E38 /* NotificationPermissionView.swift */,
-			);
-			path = Onboarding;
-			sourceTree = "<group>";
-		};
 		3B6E40452EB76F4300EA4E38 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
@@ -224,6 +281,45 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		3B6E408C2EB7800F00EA4E38 /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				3B6E40892EB7800D00EA4E38 /* OnboardingView.swift */,
+				3B6E408B2EB7800E00EA4E38 /* NotificationPermissionView.swift */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		3BD7FE412F0E082A007F69D3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3BD7FE422F0E082A007F69D3 /* WidgetKit.framework */,
+				3BD7FE442F0E082A007F69D3 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3BD7FE462F0E082A007F69D3 /* PocketsWidget */ = {
+			isa = PBXGroup;
+			children = (
+				3BD7FE5D2F0E0A9A007F69D3 /* QuickAddWidget.swift */,
+				3BD7FE472F0E082A007F69D3 /* PocketsWidgetBundle.swift */,
+				3BD7FE492F0E082A007F69D3 /* PocketsWidgetLiveActivity.swift */,
+				3BD7FE4B2F0E082A007F69D3 /* PocketsWidget.swift */,
+				3BD7FE4D2F0E082C007F69D3 /* Assets.xcassets */,
+				3BD7FE4F2F0E082C007F69D3 /* Info.plist */,
+			);
+			path = PocketsWidget;
+			sourceTree = "<group>";
+		};
+		3BD7FE5A2F0E0A81007F69D3 /* Intents */ = {
+			isa = PBXGroup;
+			children = (
+				3BD7FE592F0E0A81007F69D3 /* QuickAddExpenseIntent.swift */,
+			);
+			path = Intents;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -234,15 +330,34 @@
 				3B6E40032EB764C500EA4E38 /* Sources */,
 				3B6E40042EB764C500EA4E38 /* Frameworks */,
 				3B6E40052EB764C500EA4E38 /* Resources */,
+				3BD7FE532F0E082C007F69D3 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				3BD7FE512F0E082C007F69D3 /* PBXTargetDependency */,
 			);
 			name = Pockets;
 			productName = Pockets;
 			productReference = 3B6E40072EB764C500EA4E38 /* Pockets.app */;
 			productType = "com.apple.product-type.application";
+		};
+		3BD7FE3F2F0E082A007F69D3 /* PocketsWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3BD7FE562F0E082C007F69D3 /* Build configuration list for PBXNativeTarget "PocketsWidgetExtension" */;
+			buildPhases = (
+				3BD7FE3C2F0E082A007F69D3 /* Sources */,
+				3BD7FE3D2F0E082A007F69D3 /* Frameworks */,
+				3BD7FE3E2F0E082A007F69D3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PocketsWidgetExtension;
+			productName = PocketsWidgetExtension;
+			productReference = 3BD7FE402F0E082A007F69D3 /* PocketsWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -255,6 +370,9 @@
 				LastUpgradeCheck = 1530;
 				TargetAttributes = {
 					3B6E40062EB764C500EA4E38 = {
+						CreatedOnToolsVersion = 15.3;
+					};
+					3BD7FE3F2F0E082A007F69D3 = {
 						CreatedOnToolsVersion = 15.3;
 					};
 				};
@@ -273,6 +391,7 @@
 			projectRoot = "";
 			targets = (
 				3B6E40062EB764C500EA4E38 /* Pockets */,
+				3BD7FE3F2F0E082A007F69D3 /* PocketsWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -285,6 +404,14 @@
 				3B6E40612EB770AF00EA4E38 /* README.md in Resources */,
 				3B6E40122EB764C700EA4E38 /* Preview Assets.xcassets in Resources */,
 				3B6E400F2EB764C700EA4E38 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3BD7FE3E2F0E082A007F69D3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BD7FE4E2F0E082C007F69D3 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,6 +432,7 @@
 				3B6E40542EB76F4300EA4E38 /* DashboardView.swift in Sources */,
 				3B6E40502EB76F4300EA4E38 /* Haptics.swift in Sources */,
 				3B6E406A2EB7720000EA4E38 /* Theme.swift in Sources */,
+				3BD7FE5B2F0E0A81007F69D3 /* QuickAddExpenseIntent.swift in Sources */,
 				3B6E40522EB76F4300EA4E38 /* AddExpenseView.swift in Sources */,
 				3B6E40552EB76F4300EA4E38 /* HistoryView.swift in Sources */,
 				3B6E40582EB76F4300EA4E38 /* Category.swift in Sources */,
@@ -330,7 +458,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		3BD7FE3C2F0E082A007F69D3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3BD7FE5F2F0E0A9A007F69D3 /* QuickAddWidget.swift in Sources */,
+				3BD7FE602F0E0B0B007F69D3 /* StorageService.swift in Sources */,
+				3BD7FE4A2F0E082A007F69D3 /* PocketsWidgetLiveActivity.swift in Sources */,
+				3BD7FE612F0E0B1A007F69D3 /* Formatter.swift in Sources */,
+				3BD7FE642F0E0B39007F69D3 /* Expense.swift in Sources */,
+				3BD7FE482F0E082A007F69D3 /* PocketsWidgetBundle.swift in Sources */,
+				3BD7FE632F0E0B36007F69D3 /* Category.swift in Sources */,
+				3BD7FE5C2F0E0A81007F69D3 /* QuickAddExpenseIntent.swift in Sources */,
+				3BD7FE622F0E0B26007F69D3 /* CurrencyManager.swift in Sources */,
+				3BD7FE4C2F0E082A007F69D3 /* PocketsWidget.swift in Sources */,
+				9285E4BDDBBE4ADC9032BB9B /* Logger.swift in Sources */,
+				3B6E40692EB7716300EA4E38 /* Pocketsdatamodel.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3BD7FE512F0E082C007F69D3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3BD7FE3F2F0E082A007F69D3 /* PocketsWidgetExtension */;
+			targetProxy = 3BD7FE502F0E082C007F69D3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		3B6E40132EB764C700EA4E38 /* Debug */ = {
@@ -455,8 +610,10 @@
 		3B6E40162EB764C700EA4E38 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pockets/Pockets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pockets/Preview Content\"";
@@ -486,8 +643,10 @@
 		3B6E40172EB764C700EA4E38 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Pockets/Pockets.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Pockets/Preview Content\"";
@@ -514,6 +673,62 @@
 			};
 			name = Release;
 		};
+		3BD7FE542F0E082C007F69D3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PocketsWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = X9Q77JZUM7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PocketsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PocketsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "evank-wc.Pockets.PocketsWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3BD7FE552F0E082C007F69D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = PocketsWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = X9Q77JZUM7;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PocketsWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = PocketsWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "evank-wc.Pockets.PocketsWidget";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -531,6 +746,15 @@
 			buildConfigurations = (
 				3B6E40162EB764C700EA4E38 /* Debug */,
 				3B6E40172EB764C700EA4E38 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3BD7FE562F0E082C007F69D3 /* Build configuration list for PBXNativeTarget "PocketsWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3BD7FE542F0E082C007F69D3 /* Debug */,
+				3BD7FE552F0E082C007F69D3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
